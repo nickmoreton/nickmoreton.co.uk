@@ -1,4 +1,18 @@
 services:
+  web:
+    image: python:3.10
+    command: tail -f /dev/null
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+    working_dir: /app
+    env_file:
+      - .env
+    
   db:
     image: mysql:8.0.29
     # this is required becuse of 
